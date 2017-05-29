@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+	//object which refers to the userss
+	function user(user, campus, department, usage, image){
+			this.userName = user;
+			this.campus = campus;
+			this.dep = department;
+			this.usage = usage;
+			this.image = image;
+	}
+		
+	//creating the user array of the tope 25 users
+	var users = [];	
+	users[0] = new user("alicehyy","UNL-City","Chemistry",4524,"1.png");
+	users[1] = new user("leili","UNL-City","Chemistry",1432,"2.png");
+	users[2] = new user("hailegm","UNL-East","Natural Resources",1025,"3.png");
+	users[3] = new user("schen","UNL-City","Finance",1024,"4.png");
+	users[4] = new user("rkorlacki","UNL-City","Phys",1024,"5.png");
+	users[5] = new user("gaoyur","UNL-City","Chemistry",819,"6.png");
+	users[6] = new user("zidane","UNL-City","Mech Eng",768,"7.png");
+	users[7] = new user("okochenova","UNMC","Medical",680,"8.png");
+	users[8] = new user("hcshao","UNL-City","Physics",460,"9.png");
+	users[9] = new user("juming","UNL-City","Chemistry",352,"10.png");
+	users[10] = new user("yanhong","UNL-City","Chemistry",340,"11.png");
+	users[11] = new user("ywan37","UNL-City","Earth & Art",288,"12.png");
+	users[12] = new user("rhlei","Omaha Zoo","Omaha Zoo",256,"13.png");
+	users[13] = new user("sanjayab","UNL-East","Animal Sciences",240,"14.png");
+	users[14] = new user("wha2","UNL-City","Civ Eng",192,"15.png");
+	users[15] = new user("musai","UNO","Physics",192,"16.png");
+	users[16] = new user("lma12","UNL-City","Giosciences",177,"17.png");
+	users[17] = new user("jiezhong","UNL-City","Chemistry",176,"18.png");
+	users[18] = new user("xlli","UNL-City","Biology",160,"19.png");
+	users[19] = new user("yangzd","Creighton","Chemistry",157,"20.png");
+	users[20] = new user("manoj","UNL-City","Chem Eng",144,"21.png");
+	users[21] = new user("jasmuels","UNL-City","Comp Sci",144,"22.png");
+	users[22] = new user("dgeschwe","UNMC","Comp Sci",131,"23.png");
+	users[23] = new user("andypchen","UNL-City","Physics",96,"24.png");
+	users[24] = new user("aruiz","Rio Piedras","Physics",96,"25.png");
+	
+	//create arrays and counters based on the users campus and departments
+	var unlChem = [];
+	var unlChemCount = 0;
+	var unlMath = [];
+	var unlMathCount = 0;
+	var unlCompSci = [];
+	var unlCompSciCount = 0;
+	var unlPhys = [];
+	var unlPhysCount = 0;
+	var unlChemEng = [];
+	var unlChemEngCount = 0;
+	var unlMechEng = [];
+	var unlMechEngCount = 0;
+	var unlCivEng = [];
+	var unlCivEngCount = 0;
+	var unlCBA = [];
+	var unlCBACount = 0;
+	var unlEA = [];
+	var unlEACount = 0;
+	var unlGio = [];
+	var unlGioCount = 0;
+	var unlBio = [];
+	var unlBioCount = 0;
+	var unlNatRes = [];
+	var unlNatResCount = 0;
+	var unlStats = [];
+	var unlStatsCount = 0;
+	var unlAnimalSci = [];
+	var unlAniCount = 0;
+	var uno = [];
+	var unoCount = 0;
+	var unmc = [];
+	var unmcCount = 0;
+	var omahaZoo = [];
+	var zooCount = 0;
+	var creighton = [];
+	var creightonCount = 0;
+	var other = [];
+	var otherCount = 0;
+	
+	//filling the individual arrays with the users from the array of the top 25 users.
+	for(var i=0;i<users.length;i++) {
+		if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Chemistry")==0) {
+			if(unlChemCount <= 15) {
+				unlChem[unlChemCount] = users[i];
+				unlChemCount++;
+			}else{
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Mathematics") == 0) {
+			if(unlMathCount <= 3) {
+				unlMath[unlMathCount] = users[i];
+				unlMathCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Comp Sci") == 0) {
+			if(unlCompSciCount <= 3) {
+				unlCompSci[unlCompSciCount] = users[i];
+				unlCompSciCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && (users[i].dep.localeCompare("Physics") == 0 || users[i].dep.localeCompare("Phys") == 0)) {
+			if(unlPhysCount <= 6) {
+				unlPhys[unlPhysCount] = users[i];
+				unlPhysCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Chem Eng") == 0) {
+			if(unlChemEngCount <= 4) {
+				unlChemEng[unlChemEngCount] = users[i];
+				unlChemEngCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Mech Eng") == 0) {
+			if(unlMechEngCount <= 4) {
+				unlMechEng[unlMechEngCount] = users[i];
+				unlMechEngCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Civ Eng") == 0) {
+			if(unlCivEngCount <= 4) {
+				unlCivEng[unlCivEngCount] = users[i];
+				unlCivEngCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && (users[i].dep.localeCompare("Finance") == 0 || users[i].dep.localeCompare("Economics") == 0 || users[i].dep.localeCompare("Management") == 0 || users[i].dep.localeCompare("Marketing") == 0 || users[i].dep.localeCompare("Accounting") == 0)) {
+			if(unlCBACount <= 4) {
+				unlCBA[unlCBACount] = users[i];
+				unlCBACount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Earth & Art") == 0) {
+			if(unlEACount <= 2) {
+				unlEA[unlEACount] = users[i];
+				unlEACount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Giosciences") == 0) {
+			if(unlGioCount <= 2) {
+				unlGio[unlGioCount] = users[i];
+				unlGioCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-City") == 0 && users[i].dep.localeCompare("Biology") == 0) {
+			if(unlBioCount <= 2) {
+				unlBio[unlBioCount] = users[i];
+				unlBioCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-East") == 0 && users[i].dep.localeCompare("Natural Resources") == 0) {
+			if(unlNatResCount <= 2) {
+				unlNatRes[unlNatResCount] = users[i];
+				unlNatResCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-East") == 0 && users[i].dep.localeCompare("Statistics") == 0) {
+			if(unlStatsCount <= 2) {
+				unlStats[unlStatsCount] = users[i];
+				unlStatsCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNL-East") == 0 && users[i].dep.localeCompare("Animal Sciences") == 0) {
+			if(unlAniCount <= 3) {
+				unlAnimalSci[unlAniCount] = users[i];
+				unlAniCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNO") == 0) {
+			if(unoCount <= 6) {
+				uno[unoCount] = users[i];
+				unoCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("UNMC") == 0) {
+			if(unmcCount <= 8) {
+				unmc[unmcCount] = users[i];
+				unmcCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("Omaha Zoo") == 0) {
+			if(zooCount <= 2) {
+				omahaZoo[zooCount] = users[i];
+				zooCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else if(users[i].campus.localeCompare("Creighton") == 0) {
+			if(creightonCount <= 4) {
+				creighton[creightonCount] = users[i];
+				creightonCount++;
+			}else {
+				other[otherCount] = users[i];
+				otherCount++;
+			}
+		}else{
+			other[otherCount] = users[i];
+			otherCount++;
+		}          
+	}
+		
+	//Creating all  of maps and markers.
+	function initialize() {
+        var mapPropHam = {
+           center:new google.maps.LatLng(40.818985, -96.704625),
+           zoom:20,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapHam=new google.maps.Map(document.getElementById("Hamiltion"), mapPropHam);
+
+		var mapPropJorg = {
+           center:new google.maps.LatLng(40.8218477,-96.697800),
+           zoom:19,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapJorg=new google.maps.Map(document.getElementById("Jorgenson"), mapPropJorg);
+	
+		var mapPropThingy = {
+           center:new google.maps.LatLng(40.819681, -96.702581),
+           zoom:19,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapThingy=new google.maps.Map(document.getElementById("Thingy"), mapPropThingy);
+	
+		var mapPropHardin = {
+           center:new google.maps.LatLng(40.8289073,-96.6718718),
+           zoom:19,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapHardin=new google.maps.Map(document.getElementById("Hardin"), mapPropHardin);
+	 
+		var mapPropAnimalScience = {
+           center:new google.maps.LatLng(40.831933,-96.6650055),
+           zoom:17,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapAnimalScience=new google.maps.Map(document.getElementById("Animal Science"), mapPropAnimalScience);
+
+		var mapPropUNO = {
+           center:new google.maps.LatLng(41.2575537,-96.0108989),
+           zoom:16,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapUNO=new google.maps.Map(document.getElementById("UNO"), mapPropUNO);
+		 
+		var mapPropCBA = {
+           center:new google.maps.LatLng(40.817808, -96.703308),
+           zoom:19,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapCBA=new google.maps.Map(document.getElementById("CBA"), mapPropCBA);
+	
+		var mapPropCreighton = {
+           center:new google.maps.LatLng(41.265453, -95.946515),
+           zoom:17,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapCreighton=new google.maps.Map(document.getElementById("Creighton"), mapPropCreighton);
+		 
+		var mapPropZoo = {
+           center:new google.maps.LatLng(41.225172, -95.927603),
+           zoom:16,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapZoo=new google.maps.Map(document.getElementById("Zoo"), mapPropZoo);
+		 
+		var mapPropUNMC = {
+           center:new google.maps.LatLng(41.255273, -95.976979),
+           zoom:17,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         var mapUNMC=new google.maps.Map(document.getElementById("UNMC"), mapPropUNMC);
+		 
+		var mapPropOther = {
+           center:new google.maps.LatLng(0.322860, -89.956815),
+           zoom:14,
+           mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+		 var mapOther=new google.maps.Map(document.getElementById("Other"), mapPropOther);
+		 
+		 
+			//creating the markers for mechanical engineering users on the city campus
+			/*1*/if(unlMechEng.length>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMechEng[0].userName+" : "+unlMechEng[0].usage.toString()
+				});
+				var mechEng1 = new google.maps.Marker({
+					position: {lat: 40.823081, lng: -96.697791},
+					map: mapJorg,
+					visible: true,
+					icon: unlMechEng[0].image
+				});
+				infowindow.open(mapJorg,mechEng1);
+			}
+			/*2*/if(unlMechEng.length>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMechEng[1].userName+" : "+unlMechEng[1].usage.toString()
+				});
+				var mechEng2 = new google.maps.Marker({
+					position: {lat: 40.823081, lng: -96.697541},
+					map: mapJorg,
+					visible: true,
+					icon: unlMechEng[1].image
+				});
+				infowindow.open(mapJorg,mechEng2);
+			}
+			/*3*/if(unlMechEng.length>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMechEng[2].userName+" : "+unlMechEng[2].usage.toString()
+				});
+				var mechEng3 = new google.maps.Marker({
+					position: {lat: 40.822841, lng: -96.697791},
+					map: mapJorg,
+					visible: true,
+					icon: unlMechEng[2].image
+				});
+				infowindow.open(mapJorg,mechEng3);
+			}
+			/*4*/if(unlMechEng.length>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMechEng[3].userName+" : "+unlMechEng[3].usage.toString()
+				});
+				var mechEng4 = new google.maps.Marker({
+					position: {lat: 40.822841, lng: -96.697791},
+					map: mapJorg,
+					visible: true,
+					icon: unlMechEng[3].image
+				});
+				
+				infowindow.open(mapJorg,mechEng4);
+			}
+			
+			
+			//creating the markers for the chemistry users of the city campus
+			if(unlChemCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[0].userName+" : "+unlChem[0].usage.toString()
+				});
+				var chem1 = new google.maps.Marker({
+					position: {lat: 40.818758, lng: -96.704340},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[0].image
+				});
+				infowindow.open(mapHam,chem1);
+			}
+			if(unlChemCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[1].userName+" : "+unlChem[1].usage.toString()
+				});
+				var chem2 = new google.maps.Marker({
+					position: {lat: 40.818628, lng: -96.704340},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[1].image
+				});
+				infowindow.open(mapHam,chem2);
+			}
+			if(unlChemCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[2].userName+" : "+unlChem[2].usage.toString()
+				});
+				var chem3 = new google.maps.Marker({
+					position: {lat: 40.819012, lng: -96.704702},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[2].image
+				});
+				infowindow.open(mapHam,chem3);
+			}
+			if(unlChemCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[3].userName+" : "+unlChem[3].usage.toString()
+				});
+				var chem4 = new google.maps.Marker({
+					position: {lat: 40.819012, lng: -96.704552},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[3].image
+				});
+				infowindow.open(mapHam,chem4);
+			}
+			if(unlChemCount>=5) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[4].userName+" : "+unlChem[4].usage.toString()
+				});
+				var chem5 = new google.maps.Marker({
+					position: {lat: 40.818812, lng: -96.704702},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[4].image
+				});
+				infowindow.open(mapHam,chem5);
+			}
+			if(unlChemCount>=6) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[5].userName+" : "+unlChem[5].usage.toString()
+				});
+				var chem6 = new google.maps.Marker({
+					position: {lat: 40.818812, lng: -96.704552},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[5].image
+				});
+				infowindow.open(mapHam,chem6);
+			}
+			if(unlChemCount>=7) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[6].userName+" : "+unlChem[6].usage.toString()
+				});
+				var chem7 = new google.maps.Marker({
+					position: {lat: 40.818612, lng: -96.704702},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[6].image
+				});
+				infowindow.open(mapHam,chem7);
+			}
+			if(unlChemCount>=8) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[7].userName+" : "+unlChem[7].usage.toString()
+				});
+				var chem8 = new google.maps.Marker({
+					position: {lat: 40.818512, lng: -96.704552},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[7].image
+				});
+				infowindow.open(mapHam,chem8);
+			}
+			if(unlChemCount>=9) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[8].userName+" : "+unlChem[8].usage.toString()
+				});
+				var chem9 = new google.maps.Marker({
+					position: {lat: 40.818412, lng: -96.704702},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[8].image
+				});
+				infowindow.open(mapHam,chem9);
+			}
+			if(unlChemCount>=10) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[9].userName+" : "+unlChem[9].usage.toString()
+				});
+				var chem10 = new google.maps.Marker({
+					position: {lat: 40.818932, lng: -96.704407},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[9].image
+				});
+				infowindow.open(mapHam,chem10);
+			}
+			if(unlChemCount>=11) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[10].userName+" : "+unlChem[10].usage.toString()
+				});
+				var chem11 = new google.maps.Marker({
+					position: {lat: 40.818432, lng: -96.704407},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[10].image
+				});
+				infowindow.open(mapHam,chem11);
+			}
+			if(unlChemCount>=12) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[11].userName+" : "+unlChem[11].usage.toString()
+				});
+				var chem12 = new google.maps.Marker({
+					position: {lat: 40.818490, lng: -96.704911},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[11].image
+				});
+				infowindow.open(mapHam,chem12);
+			}
+			if(unlChemCount>=13) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[12].userName+" : "+unlChem[12].usage.toString()
+				});
+				var chem13 = new google.maps.Marker({
+					position: {lat: 40.818873, lng: -96.704147},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[12].image
+				});
+				infowindow.open(mapHam,chem13);
+			}
+			if(unlChemCount>=14) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[13].userName+" : "+unlChem[13].usage.toString()
+				});
+				var chem14 = new google.maps.Marker({
+					position: {lat: 40.818673, lng: -96.704147},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[13].image
+				});
+				infowindow.open(mapHam,chem14);
+			}
+			if(unlChemCount>=15) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChem[14].userName+" : "+unlChem[14].usage.toString()
+				});
+				var chem15 = new google.maps.Marker({
+					position: {lat: 40.818473, lng: -96.704147},
+					map: mapHam,
+					visible: true,
+					icon: unlChem[14].image
+				});
+				infowindow.open(mapHam,chem15);
+			}
+			
+			
+			//creating the markers for the math department
+			if(unlMathCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMath[0].userName+" : "+unlMath[0].usage.toString()
+				});
+				var math1 = new google.maps.Marker({
+					position: {lat: 40.819327, lng: -96.704688},
+					map: mapHam,
+					visible: true,
+					icon: unlMath[0].image
+				});
+				infowindow.open(mapHam,math1);
+			}
+			if(unlMathCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMath[1].userName+" : "+unlMath[1].usage.toString()
+				});
+				var math2 = new google.maps.Marker({
+					position: {lat: 40.819327, lng: -96.704888},
+					map: mapHam,
+					visible: true,
+					icon: unlMath[1].image
+				});
+				infowindow.open(mapHam,math2);
+			}
+			if(unlMathCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlMath[2].userName+" : "+unlMath[2].usage.toString()
+				});
+				var math3 = new google.maps.Marker({
+					position: {lat: 40.819257, lng: -96.704788},
+					map: mapHam,
+					visible: true,
+					icon: unlMath[2].image
+				});
+				infowindow.open(mapHam,math3);
+			}
+			
+			
+			//creating the markers for the Comp Sci department
+			if(unlCompSciCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCompSci[0].userName+" : "+unlCompSci[0].usage.toString()
+				});
+				var compSci1 = new google.maps.Marker({
+					position: {lat: 40.819663, lng: -96.704533},
+					map: mapHam,
+					visible: true,
+					icon: unlCompSci[0].image
+				});
+				infowindow.open(mapHam,compSci1);
+			}
+			if(unlCompSciCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCompSci[1].userName+" : "+unlCompSci[1].usage.toString()
+				});
+				var compSci2 = new google.maps.Marker({
+					position: {lat: 40.819663, lng: -96.704333},
+					map: mapHam,
+					visible: true,
+					icon: unlCompSci[1].image
+				});
+				infowindow.open(mapHam,compSci2);
+			}
+			if(unlCompSciCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCompSci[2].userName+" : "+unlCompSci[2].usage.toString()
+				});
+				var compSci3 = new google.maps.Marker({
+					position: {lat: 40.819513, lng: -96.704433},
+					map: mapHam,
+					visible: true,
+					icon: unlCompSci[2].image
+				});
+				infowindow.open(mapHam,compSci3);
+			}
+			
+			
+			//creating the markers for the Physics department
+			if(unlPhysCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlPhys[0].userName+" : "+unlPhys[0].usage.toString()
+				});
+				var phys1 = new google.maps.Marker({
+					position: {lat: 40.821618, lng: -96.698883},
+					map: mapJorg,
+					visible: true,
+					icon: unlPhys[0].image
+				});
+				infowindow.open(mapJorg,phys1);
+			}
+			if(unlPhysCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlPhys[1].userName+" : "+unlPhys[1].usage.toString()
+				});
+				var phys2 = new google.maps.Marker({
+					position: {lat: 40.822287, lng: -96.698626},
+					map: mapJorg,
+					visible: true,
+					icon: unlPhys[1].image
+				});
+				infowindow.open(mapJorg,phys2);
+			}
+			if(unlPhysCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlPhys[2].userName+" : "+unlPhys[2].usage.toString()
+				});
+				var phys3 = new google.maps.Marker({
+					position: {lat: 40.822119, lng: -96.698417},
+					map: mapJorg,
+					visible: true,
+					icon: unlPhys[2].image
+				});
+				infowindow.open(mapJorg,phys3);
+			}
+			if(unlPhysCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlPhys[3].userName+" : "+unlPhys[3].usage.toString()
+				});
+				var phys4 = new google.maps.Marker({
+					position: {lat: 40.821987, lng: -96.698626},
+					map: mapJorg,
+					visible: true,
+					icon: unlPhys[3].image
+				});
+				infowindow.open(mapJorg,phys4);
+			}
+			if(unlPhysCount>=5) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlPhys[4].userName+" : "+unlPhys[4].usage.toString()
+				});
+				var phys5 = new google.maps.Marker({
+					position: {lat: 40.821819, lng: -96.698417},
+					map: mapJorg,
+					visible: true,
+					icon: unlPhys[4].image
+				});
+				infowindow.open(mapJorg,phys5);
+			}
+			if(unlPhysCount>=6) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlPhys[5].userName+" : "+unlPhys[5].usage.toString()
+				});
+				var phys6 = new google.maps.Marker({
+					position: {lat: 40.821627, lng: -96.698606},
+					map: mapJorg,
+					visible: true,
+					icon: unlPhys[5].image
+				});
+				infowindow.open(mapJorg,phys6);
+			}
+
+			
+			//creating the Chem Engineering markers
+			if(unlChemEngCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChemEng[0].userName+" : "+unlChemEng[0].usage.toString()
+				});
+				var chemEng1 = new google.maps.Marker({
+					position: {lat: 40.821393, lng: -96.697468},
+					map: mapJorg,
+					visible: true,
+					icon: unlChemEng[0].image
+				});
+				infowindow.open(mapJorg,chemEng1);
+			}
+			if(unlChemEngCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChemEng[1].userName+" : "+unlChemEng[1].usage.toString()
+				});
+				var chemEng2 = new google.maps.Marker({
+					position: {lat: 40.821393, lng: -96.697168},
+					map: mapJorg,
+					visible: true,
+					icon: unlChemEng[1].image
+				});
+				infowindow.open(mapJorg,chemEng2);
+			}
+			if(unlChemEngCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChemEng[2].userName+" : "+unlChemEng[2].usage.toString()
+				});
+				var chemEng3 = new google.maps.Marker({
+					position: {lat: 40.821153, lng: -96.697468},
+					map: mapJorg,
+					visible: true,
+					icon: unlChemEng[2].image
+				});
+				infowindow.open(mapJorg,chemEng3);
+			}
+			if(unlChemEngCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlChemEng[3].userName+" : "+unlChemEng[3].usage.toString()
+				});
+				var chemEng4 = new google.maps.Marker({
+					position: {lat: 40.821153, lng: -96.697168},
+					map: mapJorg,
+					visible: true,
+					icon: unlChemEng[3].image
+				});
+				infowindow.open(mapJorg,chemEng4);
+			}
+			
+			
+			//creating the Civil Engineering markers
+			if(unlCivEngCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCivEng[0].userName+" : "+unlCivEng[0].usage.toString()
+				});
+				var civEng1 = new google.maps.Marker({
+					position: {lat: 40.822194, lng: -96.697693},
+					map: mapJorg,
+					visible: true,
+					icon: unlCivEng[0].image
+				});
+				infowindow.open(mapJorg,civEng1);
+			}
+			if(unlCivEngCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCivEng[1].userName+" : "+unlCivEng[1].usage.toString()
+				});
+				var civEng2 = new google.maps.Marker({
+					position: {lat: 40.822106, lng: -96.697344},
+					map: mapJorg,
+					visible: true,
+					icon: unlCivEng[1].image
+				});
+				infowindow.open(mapJorg,civEng2);
+			}
+			if(unlCivEngCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCivEng[2].userName+" : "+unlCivEng[2].usage.toString()
+				});
+				var civEng3 = new google.maps.Marker({
+					position: {lat: 40.821781, lng: -96.697674},
+					map: mapJorg,
+					visible: true,
+					icon: unlCivEng[2].image
+				});
+				infowindow.open(mapJorg,civEng3);
+			}
+			if(unlCivEngCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCivEng[3].userName+" : "+unlCivEng[3].usage.toString()
+				});
+				var civEng4 = new google.maps.Marker({
+					position: {lat: 40.821714, lng: -96.697387},
+					map: mapJorg,
+					visible: true,
+					icon: unlCivEng[3].image
+				});
+				infowindow.open(mapJorg,civEng4);
+			}
+			
+			
+			//creating the Biology markers
+			if(unlBioCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlBio[0].userName+" : "+unlBio[0].usage.toString()
+				});
+				var bio1 = new google.maps.Marker({
+					position: {lat: 40.818983, lng: -96.704985},
+					map: mapHam,
+					visible: true,
+					icon: unlBio[0].image
+				});
+				infowindow.open(mapHam,bio1);
+			}
+			if(unlBioCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlBio[1].userName+" : "+unlBio[1].usage.toString()
+				});
+				var bio1 = new google.maps.Marker({
+					position: {lat: 40.818773, lng: -96.704985},
+					map: mapHam,
+					visible: true,
+					icon: unlBio[1].image
+				});
+				infowindow.open(mapHam,bio2);
+			}
+			
+			
+			//creating the Giosciences markers
+			if(unlGioCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlGio[0].userName+" : "+unlGio[0].usage.toString()
+				});
+				var gioSci1 = new google.maps.Marker({
+					position: {lat: 40.819948, lng: -96.703127},
+					map: mapThingy,
+					visible: true,
+					icon: unlGio[0].image
+				});
+				infowindow.open(mapThingy,gioSci1);
+			}
+			if(unlGioCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlGio[1].userName+" : "+unlGio[1].usage.toString()
+				});
+				var gioSci2 = new google.maps.Marker({
+					position: {lat: 40.819927, lng: -96.702957},
+					map: mapThingy,
+					visible: true,
+					icon: unlGio[1].image
+				});
+				infowindow.open(mapThingy,gioSci2);
+			}
+			
+			
+			//creating the Earth and Atmospheric science markers
+			if(unlEACount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlEA[0].userName+" : "+unlEA[0].usage.toString()
+				});
+				var earthAtm1 = new google.maps.Marker({
+					position: {lat: 40.819948, lng: -96.703457},
+					map: mapThingy,
+					visible: true,
+					icon: unlEA[0].image
+				});
+				infowindow.open(mapThingy,earthAtm1);
+			}
+			if(unlEACount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlEA[1].userName+" : "+unlEA[1].usage.toString()
+				});
+				var earthAtm1 = new google.maps.Marker({
+					position: {lat: 40.819927, lng: -96.703617},
+					map: mapThingy,
+					visible: true,
+					icon: unlEA[1].image
+				});
+				infowindow.open(mapThingy,earthAtm1);
+			}
+			
+			
+			//creating the CBA markers
+			if(unlCBACount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCBA[0].userName+" : "+unlCBA[0].usage.toString()
+				});
+				var cba1 = new google.maps.Marker({
+					position: {lat: 40.817908, lng: -96.703408},
+					map: mapCBA,
+					visible: true,
+					icon: unlCBA[0].image
+				});
+				infowindow.open(mapCBA,cba1);
+			}
+			if(unlCBACount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCBA[1].userName+" : "+unlCBA[1].usage.toString()
+				});
+				var cba2 = new google.maps.Marker({
+					position: {lat: 40.818054, lng: -96.703615},
+					map: mapCBA,
+					visible: true,
+					icon: unlCBA[1].image
+				});
+				infowindow.open(mapCBA,cba2);
+			}
+			if(unlCBACount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCBA[2].userName+" : "+unlCBA[2].usage.toString()
+				});
+				var cba3 = new google.maps.Marker({
+					position: {lat: 40.817725, lng: -96.703194},
+					map: mapCBA,
+					visible: true,
+					icon: unlCBA[2].image
+				});
+				infowindow.open(mapCBA,cba3);
+			}
+			if(unlCBACount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlCBA[3].userName+" : "+unlCBA[3].usage.toString()
+				});
+				var cba4 = new google.maps.Marker({
+					position: {lat: 40.817585, lng: -96.703620},
+					map: mapCBA,
+					visible: true,
+					icon: unlCBA[3].image
+				});
+				infowindow.open(mapCBA,cba4);
+			}
+			
+			
+			//creating the Natural Resources markers
+			if(unlNatResCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlNatRes[0].userName+" : "+unlNatRes[0].usage.toString()
+				});
+				var natRes1 = new google.maps.Marker({
+					position: {lat: 40.828883, lng: -96.672239},
+					map: mapHardin,
+					visible: true,
+					icon: unlNatRes[0].image
+				});
+				infowindow.open(mapHardin,natRes1);
+			}
+			if(unlNatResCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlNatRes[1].userName+" : "+unlNatRes[1].usage.toString()
+				});
+				var natRes2 = new google.maps.Marker({
+					position: {lat: 40.829051, lng: -96.672336},
+					map: mapHardin,
+					visible: true,
+					icon: unlNatRes[1].image
+				});
+				infowindow.open(mapHardin,natRes2);
+			}
+			
+			
+			//creating the Statistics markers
+			if(unlStatsCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlStats[0].userName+" : "+unlStats[0].usage.toString()
+				});
+				var stats1 = new google.maps.Marker({
+					position: {lat: 40.828555, lng: -96.671692},
+					map: mapHardin,
+					visible: true,
+					icon: unlStats[0].image
+				});
+				infowindow.open(mapHardin,stats1);
+			}
+			if(unlStatsCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlStats[1].userName+" : "+unlStats[1].usage.toString()
+				});
+				var stats2 = new google.maps.Marker({
+					position: {lat: 40.828794, lng: -96.671453},
+					map: mapHardin,
+					visible: true,
+					icon: unlStats[1].image
+				});
+				infowindow.open(mapHardin,stats2);
+			}
+			
+			
+			//creating the Animal Sciences markers
+			if(unlAniCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlAnimalSci[0].userName+" : "+unlAnimalSci[0].usage.toString()
+				});
+				var animalScience1 = new google.maps.Marker({
+					position: {lat: 40.832117, lng: -96.664417},
+					map: mapAnimalScience,
+					visible: true,
+					icon: unlAnimalSci[0].image
+				});
+				infowindow.open(mapAnimalScience,animalScience1);
+			}
+			if(unlAniCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlAnimalSci[1].userName+" : "+unlAnimalSci[1].usage.toString()
+				});
+				var animalScience2 = new google.maps.Marker({
+					position: {lat: 40.832355, lng: -96.664948},
+					map: mapAnimalScience,
+					visible: true,
+					icon: unlAnimalSci[1].image
+				});
+				infowindow.open(mapAnimalScience,animalScience2);
+			}
+			if(unlAniCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unlAnimalSci[2].userName+" : "+unlAnimalSci[2].usage.toString()
+				});
+				var animalScience3 = new google.maps.Marker({
+					position: {lat: 40.832458, lng: -96.663925},
+					map: mapAnimalScience,
+					visible: true,
+					icon: unlAnimalSci[2].image
+				});
+				infowindow.open(mapAnimalScience,animalScience3);
+			}
+			
+			
+			/*creating the Agronomy markers
+			if(unlAgrCount>=1) {
+				
+				var agr1 = new google.maps.Marker({
+					position: {lat: 40.830682, lng: -96.666120},
+					map: mapAnimalScience,
+					visible: true,
+					icon: unlAgr[0].image
+				});
+			}
+			if(unlAgrCount>=2) {
+				
+				var agr2 = new google.maps.Marker({
+					position: {lat: 40.830887, lng: -96.666426},
+					map: mapAnimalScience,
+					visible: true,
+					icon: unlAgr[1].image
+				});
+			}*/
+			
+			
+			//creating the UNO markers
+			if(unoCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: uno[0].userName+" : "+uno[0].usage.toString()
+				});
+				var uno1 = new google.maps.Marker({
+					position: {lat: 41.257884, lng: -96.010770},
+					map: mapUNO,
+					visible: true,
+					icon: uno[0].image
+				});
+				infowindow.open(mapUNO,uno1);
+			}
+			if(unoCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: uno[1].userName+" : "+uno[1].usage.toString()
+				});
+				var uno2 = new google.maps.Marker({
+					position: {lat: 41.257948, lng: -96.005963},
+					map: mapUNO,
+					visible: true,
+					icon: uno[1].image
+				});
+				infowindow.open(mapUNO,uno2);
+			}
+			if(unoCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: uno[2].userName+" : "+uno[2].usage.toString()
+				});
+				var uno3 = new google.maps.Marker({
+					position: {lat: 41.256690, lng: -96.009869},
+					map: mapUNO,
+					visible: true,
+					icon: uno[2].image
+				});
+				infowindow.open(mapUNO,uno3);
+			}
+			if(unoCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: uno[3].userName+" : "+uno[3].usage.toString()
+				});
+				var uno4 = new google.maps.Marker({
+					position: {lat: 41.258545, lng: -96.013281},
+					map: mapUNO,
+					visible: true,
+					icon: uno[3].image
+				});
+				infowindow.open(mapUNO,uno4);
+			}
+			if(unoCount>=5) {
+				var infowindow = new google.maps.InfoWindow({
+					content: uno[4].userName+" : "+uno[4].usage.toString()
+				});
+				var uno5 = new google.maps.Marker({
+					position: {lat: 41.257166, lng: -96.008667},
+					map: mapUNO,
+					visible: true,
+					icon: uno[4].image
+				});
+				infowindow.open(mapUNO,uno5);
+			}
+			if(unoCount>=6) {
+				var infowindow = new google.maps.InfoWindow({
+					content: uno[5].userName+" : "+uno[5].usage.toString()
+				});
+				var uno6 = new google.maps.Marker({
+					position: {lat: 41.257416, lng: -96.015630},
+					map: mapUNO,
+					visible: true,
+					icon: uno[5].image
+				});
+				infowindow.open(mapUNO,uno6);
+			}
+			
+			
+			//creating the Creighton markers
+			if(creightonCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: creighton[0].userName+" : "+creighton[0].usage.toString()
+				});
+				var creighton1 = new google.maps.Marker({
+					position: {lat: 41.265347, lng: -95.947705},
+					map: mapCreighton,
+					visible: true,
+					icon: creighton[0].image
+				});
+				infowindow.open(mapCreighton,creighton1);
+			}
+			if(creightonCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: creighton[1].userName+" : "+creighton[1].usage.toString()
+				});
+				var creighton2 = new google.maps.Marker({
+					position: {lat: 41.265375, lng: -95.949320},
+					map: mapCreighton,
+					visible: true,
+					icon: creighton[1].image
+				});
+				infowindow.open(mapCreighton,creighton2);
+			}
+			if(creightonCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: creighton[2].userName+" : "+creighton[2].usage.toString()
+				});
+				var creighton3 = new google.maps.Marker({
+					position: {lat: 41.266137, lng: -95.950897},
+					map: mapCreighton,
+					visible: true,
+					icon: creighton[2].image
+				});
+				infowindow.open(mapCreighton,creighton3);
+			}
+			if(creightonCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: creighton[3].userName+" : "+creighton[3].usage.toString()
+				});
+				var creighton4 = new google.maps.Marker({
+					position: {lat: 41.265375, lng: -95.949320},
+					map: mapCreighton,
+					visible: true,
+					icon: creighton[3].image
+				});
+				infowindow.open(mapCreighton,creighton4);
+			}
+			
+			
+			//creating the Omaha Zoo markers
+			if(zooCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: omahaZoo[0].userName+" : "+omahaZoo[0].usage.toString()
+				});
+				var zoo1 = new google.maps.Marker({
+					position: {lat: 41.225136, lng: -95.926442},
+					map: mapZoo,
+					visible: true,
+					icon: omahaZoo[0].image
+				});
+				infowindow.open(mapZoo,zoo1);
+			}
+			if(zooCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: omahaZoo[1].userName+" : "+omahaZoo[1].usage.toString()
+				});
+				var zoo2 = new google.maps.Marker({
+					position: {lat: 41.225701, lng: -95.927794},
+					map: mapZoo,
+					visible: true,
+					icon: omahaZoo[1].image
+				});
+				infowindow.open(mapZoo,zoo2);
+			}
+			
+			
+			//creating the UNMC markers
+			if(unmcCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[0].userName+" : "+unmc[0].usage.toString()
+				});
+				var unmc1 = new google.maps.Marker({
+					position: {lat: 41.255260, lng: -95.977904},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[0].image
+				});
+				infowindow.open(mapUNMC,unmc1);
+			}
+			if(unmcCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[1].userName+" : "+unmc[1].usage.toString()
+				});
+				var unmc2 = new google.maps.Marker({
+					position: {lat: 41.253928, lng: -95.976360},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[1].image
+				});
+				infowindow.open(mapUNMC,unmc2);
+			}
+			if(unmcCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[2].userName+" : "+unmc[2].usage.toString()
+				});
+				var unmc3 = new google.maps.Marker({
+					position: {lat: 41.254953, lng: -95.977089},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[2].image
+				});
+				infowindow.open(mapUNMC,unmc3);
+			}
+			if(unmcCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[3].userName+" : "+unmc[3].usage.toString()
+				});
+				var unmc4 = new google.maps.Marker({
+					position: {lat: 41.256469, lng: -95.977207},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[3].image
+				});
+				infowindow.open(mapUNMC,unmc4);
+			}
+			if(unmcCount>=5) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[4].userName+" : "+unmc[4].usage.toString()
+				});
+				var unmc5 = new google.maps.Marker({
+					position: {lat: 41.254598, lng: -95.975126},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[4].image
+				});
+				infowindow.open(mapUNMC,unmc5);
+			}
+			if(unmcCount>=6) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[5].userName+" : "+unmc[5].usage.toString()
+				});
+				var unmc6 = new google.maps.Marker({
+					position: {lat: 41.254638, lng: -95.979761},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[5].image
+				});
+				infowindow.open(mapUNMC,unmc6);
+			}
+			if(unmcCount>=7) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[6].userName+" : "+unmc[6].usage.toString()
+				});
+				var unmc7 = new google.maps.Marker({
+					position: {lat: 41.255670, lng: -95.979804},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[6].image
+				});
+				infowindow.open(mapUNMC,unmc7);
+			}
+			if(unmcCount>=8) {
+				var infowindow = new google.maps.InfoWindow({
+					content: unmc[7].userName+" : "+unmc[7].usage.toString()
+				});
+				var unmc8 = new google.maps.Marker({
+					position: {lat: 41.255702, lng: -95.975201},
+					map: mapUNMC,
+					visible: true,
+					icon: unmc[7].image
+				});
+				infowindow.open(mapUNMC,unmc8);
+			}
+			
+			
+			//creating the Other markers
+			if(otherCount>=1) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[0].userName+" : "+other[0].usage.toString()+" : "+other[0].campus
+				});
+				var other1 = new google.maps.Marker({
+					position: {lat: 0.327469, lng: -89.958135},
+					map: mapOther,
+					visible: true,
+					icon: other[0].image
+				});
+				infowindow.open(mapOther,other1);
+			}
+			if(otherCount>=2) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[1].userName+" : "+other[1].usage.toString()+" : "+other[1].campus
+				});
+				var other2 = new google.maps.Marker({
+					position: {lat: 0.311022, lng: -89.954005},
+					map: mapOther,
+					visible: true,
+					icon: other[1].image
+				});
+				infowindow.open(mapOther,other2);
+			}
+			if(otherCount>=3) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[2].userName+" : "+other[2].usage.toString()+" : "+other[2].campus
+				});
+				var other3 = new google.maps.Marker({
+					position: {lat: 0.332705, lng: -89.968178},
+					map: mapOther,
+					visible: true,
+					icon: other[2].image
+				});
+				infowindow.open(mapOther,other3);
+			}
+			if(otherCount>=4) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[3].userName+" : "+other[3].usage.toString()+" : "+other[3].campus
+				});
+				var other4 = new google.maps.Marker({
+					position: {lat: 0.321037, lng: -89.970238},
+					map: mapOther,
+					visible: true,
+					icon: other[3].image
+				});
+				infowindow.open(mapOther,other4);
+			}
+			if(otherCount>=5) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[4].userName+" : "+other[4].usage.toString()+" : "+other[4].campus
+				});
+				var other5 = new google.maps.Marker({
+					position: {lat: 0.323156, lng: -89.942794},
+					map: mapOther,
+					visible: true,
+					icon: other[4].image
+				});
+				infowindow.open(mapOther,other5);
+			}
+			if(otherCount>=6) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[5].userName+" : "+other[5].usage.toString()+" : "+other[5].campus
+				});
+				var other6 = new google.maps.Marker({
+					position: {lat: 0.337307, lng: -89.948877},
+					map: mapOther,
+					visible: true,
+					icon: other[5].image
+				});
+				infowindow.open(mapOther,other6);
+			}
+			if(otherCount>=7) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[6].userName+" : "+other[6].usage.toString()+" : "+other[6].campus
+				});
+				var other7 = new google.maps.Marker({
+					position: {lat: 0.310037, lng: -89.970238},
+					map: mapOther,
+					visible: true,
+					icon: other[6].image
+				});
+				infowindow.open(mapOther,other7);
+			}
+			if(otherCount>=8) {
+				var infowindow = new google.maps.InfoWindow({
+					content: other[7].userName+" : "+other[7].usage.toString()+" : "+other[7].campus
+				});
+				var other8 = new google.maps.Marker({
+					position: {lat: 0.301380, lng: -89.945577},
+					map: mapOther,
+					visible: true,
+					icon: other[7].image
+				});
+				infowindow.open(mapOther,other8);
+			}
+    }
+	
+    google.maps.event.addDomListener(window, 'load', initialize);  
+	
+    </script>
+  </head>
+  <style> 
+		body{width:4096px; height:2160px;margin: 20px auto;} 
+		.boxed{width:100s%;height:5%;margin: 40px 40px 40px 40px auto;background-color:#d00000;text-shadow: 3px 3px #800000;box-shadow: 12px 12px 0px #800000;margin: auto;} 
+		.mapLabel{margin: 20px 20px;float:left;position:relative;text-align:center;font-size:20px;font-family:georgia;font-weight:bold;color:#d00000;text-shadow: 1px 1px #bdbdbd;}
+		.googleMap{box-shadow: 12px 12px 0px #bdbdbd;width:100%;height:100%;float:inherit;position:inherit}
+  </style>
+  <body style="background-color:#FEFDFA;">
+    <div align="center" id="banner" class="boxed" style="text-align:center;font-size:85px;font-family:Georgia;font-weight:bold;color:#FEFDFA;">
+	<img src="R-N.HEX.png" alt="N" style="float:left;width:90px;height:90px;margin:7px 7px">
+	<img src="R-N.HEX.png" alt="N" style="float:right;width:90px;height:90px;margin:7px 7px">
+      Holland Computing Center - Top 25 Users
+    </div>
+    <div class="mapLabel" style="width:840px;height:2080px;">Hamiltion/Avery<div id="Hamiltion" class="googleMap"></div></div>
+	<div class="mapLabel" style="width:2000px;height:540px;">Bessey/Old Father/Burrnet/Morril/The Other<div id="Thingy" class="googleMap"></div></div>
+    <div class="mapLabel" style="width:1134px;height:2080px;float:right">Jorgenson/Scott/Othmer<div id="Jorgenson" class="googleMap"></div></div>
+    <div class="mapLabel" style="width:515px;height:450px;">Hardin Hall<div id="Hardin" class="googleMap"></div></div>
+    <div class="mapLabel" style="width:515px;height:450px;">Animal Sciences<div id="Animal Science" class="googleMap"></div></div>
+    <div class="mapLabel" style="width:890px;height:450px;">UNO<div id="UNO" class="googleMap"></div></div>
+	<div class="mapLabel" style="width:450px;height:425px;">CBA<div id="CBA" class="googleMap"></div></div>
+	<div class="mapLabel" style="width:960px;height:425px;">Creighton<div id="Creighton" class="googleMap"></div></div>
+	<div class="mapLabel" style="width:510px;height:425px;">Omaha Zoo<div id="Zoo" class="googleMap"></div></div>
+	<div class="mapLabel" style="width:1300px;height:550px;">UNMC<div id="UNMC" class="googleMap"></div></div>
+	<div class="mapLabel" style="width:660px;height:550px;">Other<div id="Other" class="googleMap"></div></div>
+  </body>
+</html>
