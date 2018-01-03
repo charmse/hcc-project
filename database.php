@@ -6,7 +6,7 @@ class database {
 	{
 		try {
 			$username = "charms";
-			$password = "qIX39r";
+			$password = "******";
 			$servername = "cse.unl.edu";
 			$this->conn = new PDO("mysql:host=$servername;dbname=charms", $username, $password);
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
